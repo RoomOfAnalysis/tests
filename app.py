@@ -26,6 +26,22 @@ def linechart():
     return jsonify(data)
 
 
+@cross_origin()
+@app.route('/wordcloud')
+def wordcloud():
+    words = [
+        'Electrospining', 'MECC', 'Glovebox_single', 'Glovebox_double', 'Electrolytefilling', 'DesktopSEM'
+    ]
+    data = [
+        {
+            'text': word,
+            'size': len(word)*12
+        }
+        for word in words
+    ]
+    return jsonify(data)
+
+
 if __name__ == '__main__':
     app.run()
 
