@@ -200,6 +200,7 @@ if __name__ == '__main__':
 
     # check assigned classes for the two moons as a classification error
     t = clss.predict(data)
+    # print(t)
     print("Error", numpy.sum((labels - t) ** 2) / float(len(data)))
 
     from matplotlib import pyplot
@@ -218,5 +219,19 @@ if __name__ == '__main__':
 
     pyplot.scatter(data[t == 0, 0], data[t == 0, 1], c='r')
     pyplot.scatter(data[t == 1, 0], data[t == 1, 1], c='b')
+
+    # sklearn
+    from sklearn.svm import SVC
+
+    data, labels = sklearn.datasets.make_moons(400, noise=0.01, random_state=0)
+    clf = SVC(gamma='auto')
+    clf.fit(data, labels)
+    ct = clf.predict(data)
+    # print(ct)
+    print("Error sklearn", numpy.sum((labels - ct) ** 2) / float(len(data)))
+    data *= 25.
+    data += 50.
+    pyplot.scatter(data[ct == 0, 0], data[ct == 0, 1], c='r')
+    pyplot.scatter(data[ct == 1, 0], data[ct == 1, 1], c='b')
 
     pyplot.show()
