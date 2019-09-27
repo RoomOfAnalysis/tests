@@ -27,22 +27,22 @@ def load_3d_pt_cloud_data_with_delimiter(path_name: str, delimiter: str) -> np.a
 
 
 fig = plt.figure(figsize=(20, 10))
-ax = fig.add_subplot(411, projection='3d')
 
 # Make data.
 data = load_3d_pt_cloud_data_with_delimiter('ism_train_cat_normal_mesh.txt', r"\s+")
 
 print(data.shape)
 
-# ax.plot_trisurf(X, Y, Z, linewidth=0.2, antialiased=True)
-
 poly3d = [[data[i, j * 3:j * 3 + 3] for j in range(3)] for i in range(data.shape[0])]
 fc = ["crimson" if i % 2 else "gold" for i in range(data.shape[0])]
-mesh = Poly3DCollection(poly3d, facecolors=fc, linewidths=0.1, alpha=0.1)
+mesh = Poly3DCollection(poly3d, facecolors=fc, linewidths=0.1, alpha=0.5)
+
+# ax.plot_trisurf(X, Y, Z, linewidth=0.2, antialiased=True)
+ax = fig.add_subplot(411, projection='3d')
 ax.add_collection3d(mesh)
-# ax.set_xlim(-30, 0)
-# ax.set_ylim(20, 50)
-# ax.set_zlim(20, 70)
+ax.set_xlim(-120, 20)
+ax.set_ylim(-130, 100)
+ax.set_zlim(-80, 140)
 ax.set_xlabel("x")
 ax.set_ylabel("y")
 ax.set_zlabel("z")
@@ -77,4 +77,5 @@ cx.set_ylabel("y")
 cx.set_zlabel("z")
 cx.view_init(45, 0)
 
+plt.savefig("poisson.svg")
 plt.show()
