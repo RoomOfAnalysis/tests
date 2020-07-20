@@ -48,6 +48,8 @@ def server(addr, n, dm, rm):
 
 
 if __name__ == '__main__':
+    # https://stackoverflow.com/questions/41529420/mmap-file-backed-mapping-vs-anonymous-mapping-in-linux
+    #'''
     with open(data_mmfn, "wb") as df, open(result_mmfn, "wb") as rf:
         df.truncate(N)
         rf.truncate(R)
@@ -58,3 +60,11 @@ if __name__ == '__main__':
             time.sleep(1)
             client(N, dm, rm)
             sp.kill()
+    '''
+    with mmap.mmap(-1, N) as dm, mmap.mmap(-1, R) as rm:
+        sp = multiprocessing.Process(target=server, args=(ipc_address, R, dm, rm))
+        sp.start()
+        time.sleep(1)
+        client(N, dm, rm)
+        sp.kill()
+    '''
