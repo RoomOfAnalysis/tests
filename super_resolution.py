@@ -1,3 +1,4 @@
+# for RTX 1080
 # conda create -n sr_mockup python=3.7
 # conda activate sr_mockup
 # pip install ISR
@@ -20,6 +21,17 @@
 
 # Could not load dynamic library 'cudnn64_7.dll'; dlerror: cudnn64_7.dll not found
 # conda install -c conda-forge cudnn=7.6
+
+
+# for RTX 3080, it requires a newer cudatoolkit and cudnn
+# according to tensorflow's doc: https://www.tensorflow.org/install/pip#windows-native
+# TensorFlow 2.10 was the last TensorFlow release that supported GPU on native-Windows
+# conda install -c conda-forge cudatoolkit=11.2 cudnn=8.1.0
+# pip install "tensorflow<2.11"
+# pip uninstall isr
+# pip install isr --no-deps
+# pip install 'h5py==2.10.0' --force-reinstall
+
 
 # usage:
 # python .\super_resolution.py C:\Users\Harold\Downloads\samples\sr\baboon.png C:\Users\Harold\Downloads\samples\sr\out.png
